@@ -6,7 +6,7 @@ from io import BytesIO
 import urllib.parse
 
 # Define the URL of the web page containing the images
-url = "https://www.nettruyenco.vn/truyen-tranh/mashle-magic-and-muscles/chuong-1/372895"
+url = "example.com"
 
 # Send a GET request to the URL
 response = requests.get(url)
