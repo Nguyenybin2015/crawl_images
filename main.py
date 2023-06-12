@@ -1,10 +1,12 @@
 import requests
 from bs4 import BeautifulSoup
 import os
+from PIL import Image
+from io import BytesIO
 import urllib.parse
 
 # Define the URL of the web page containing the images
-url = "example.com"
+url = "https://www.nettruyenco.vn/truyen-tranh/mashle-magic-and-muscles/chuong-1/372895"
 
 # Send a GET request to the URL
 response = requests.get(url)
@@ -30,6 +32,12 @@ for image in image_tags:
 
     image_path = os.path.join(save_directory, sanitized_name + ".jpg")
     response = requests.get(image_url)
-    with open(image_path, "wb") as file:
-        file.write(response.content)
-    print("Downloaded:", image_path)
+
+    # Check if the response contains image data
+    if "image" in response.headers["Content-Type"]:
+        # Save the image to the specified path
+        with open(image_path, "wb") as file:
+            file.write(response.content)
+        print("Downloaded:", image_path)
+    else:
+        print("Skipped:", image_url, "- Not an image")
